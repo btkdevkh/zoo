@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des familles{% endblock %}
+
+{% block h1 %}Liste des familles{% endblock %}
+{% block body %}
+    {% for family in families %}
+        <h2 class="">
+            <a href="{{ path('family', {'id': family.id }) }}" class="">
+                {{ family.label|capitalize }}
+            </a>
+        </h2>
+        <div class="">{{ family.description }}</div>
+
+        <div class="row align-items-center">
+            {% for animal in family.animals %}
+                <div class="col-6">
+                    <div class="row align-items-center text-center">
+                        <div class="col-12 col-md-6 col-2">
+                            <img src="{{ asset('images/' ~ animal.image) }}" class="img-fluid">
+                        </div>
+                        <div class="col text-center">
+                            <h2>
+                            <a href="{{ path('animal', {'id': animal.id}) }}">{{ animal.name }}</a>
+                            </h2>
+                            <div class="my-1">{{ animal.description }}</div>
+                            <div>
+                                {% for continent in animal.continents %}
+                                    <a href="{{ path('continent', {'id': continent.id }) }}" class="btn btn-warning">{{ continent.label }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}
